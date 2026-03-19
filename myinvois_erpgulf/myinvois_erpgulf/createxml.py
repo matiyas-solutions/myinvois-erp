@@ -1322,7 +1322,7 @@ def item_data_with_template(invoice, sales_invoice_doc):
                 cac_Price, "cbc:PriceAmount", currencyID=sales_invoice_doc.currency
             )
             cbc_PriceAmount.text = str(
-                abs((single_item.base_price_list_rate) - discount_amount)
+                abs(single_item.rate)
             )
 
             cac_ItemPriceExtension = ET.SubElement(

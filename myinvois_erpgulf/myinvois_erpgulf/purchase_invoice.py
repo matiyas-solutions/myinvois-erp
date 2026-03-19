@@ -997,7 +997,7 @@ def invoice_line_item(invoice, sales_invoice_doc):
                 price_item, "cbc:PriceAmount", currencyID=sales_invoice_doc.currency
             )
             pri_amnt_item.text = str(
-                abs(single_item.base_price_list_rate) - discount_amount
+                abs(single_item.rate)
             )
             item_pri_ext = ET.SubElement(invoice_line, "cac:ItemPriceExtension")
             item_val_amnt = ET.SubElement(item_pri_ext, "cbc:Amount", currencyID=sales_invoice_doc.currency)
