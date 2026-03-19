@@ -48,7 +48,12 @@
 // });
 
 frappe.ui.form.on('Sales Invoice', {
+
+    setup:function(frm){
+       frm.ignore_doctypes_on_cancel_all = ["Sales Invoice", "Sales Invoice Item"];
+       },
     refresh: function(frm) {
+        frm.ignore_doctypes_on_cancel_all = ["Sales Invoice", "Sales Invoice Item"];
         if (frm.doc.docstatus !== 1) return;
 
         let response = frm.doc.custom_submit_response;
