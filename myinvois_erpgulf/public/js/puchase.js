@@ -63,6 +63,9 @@
 frappe.ui.form.on('Purchase Invoice', {
     refresh: function(frm) {
         // Always show "Get Status" button
+         if (frm.is_new()) {
+         set_invoice_type_code(frm);
+         }
         frm.add_custom_button(__('Get Status of SubmittedDoc'), function () {
             frappe.call({
                 method: "myinvois_erpgulf.myinvois_erpgulf.get_status.status_submit",
@@ -128,7 +131,13 @@ frappe.ui.form.on('Purchase Invoice', {
                 });
             });
         }
-    }
+    },
+    is_return: function(frm) {
+        set_invoice_type_code(frm);
+    },
+    custom_is_return_refund: function(frm) {
+        set_invoice_type_code(frm);
+    },
 });
 
 // 🔧 Utility: Show loading overlay
@@ -221,4 +230,15 @@ function show_loading_overlay() {
 
 function hide_loading_overlay() {
     $('#custom-loading-overlay').remove();
+}
+
+
+function set_invoice_type_code(frm) {
+    if (frm.doc.is_return) {
+        frm.set_value('custom_invoicetype_code', '13 : Self-billed Debit Note');
+    } else if (frm.doc.custom_is_return_refund){
+        frm.set_value('custom_invoicetype_code', '14 : Self-billed Refund Note');
+    } else {
+        frm.set_value('custom_invoicetype_code', '11 : Self-billed Invoice');
+    }
 }
