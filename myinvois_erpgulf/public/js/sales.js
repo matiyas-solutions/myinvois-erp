@@ -133,6 +133,9 @@ function hide_loading_overlay() {
 
 frappe.ui.form.on('Sales Invoice', { 
     refresh: function(frm) {
+        if(frm.is_new()){
+             set_invoice_type_code(frm);
+        }
         // Add the custom button
         frm.add_custom_button(__('Get Status of SubmittedDoc'), function() {
             // Call the backend method to get the status
@@ -171,7 +174,13 @@ frappe.ui.form.on('Sales Invoice', {
                 }
             }
         });
-    }
+    },
+    is_return: function(frm) {
+        set_invoice_type_code(frm);
+    },
+    is_debit_note: function(frm) {
+        set_invoice_type_code(frm);
+    },
 });
 
 
@@ -206,4 +215,15 @@ function show_loading_overlay() {
 
 function hide_loading_overlay() {
     $('#custom-loading-overlay').remove();
+}
+
+
+function set_invoice_type_code(frm) {
+    if (frm.doc.is_return) {
+        frm.set_value('custom_invoicetype_code', '02 : Credit Note');
+    } else if (frm.doc.is_debit_note){
+        frm.set_value('custom_invoicetype_code', '03 :  Debit Note');
+    } else {
+        frm.set_value('custom_invoicetype_code', '01 :  Invoice');
+    }
 }
