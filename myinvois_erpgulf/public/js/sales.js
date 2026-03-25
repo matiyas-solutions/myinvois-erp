@@ -181,6 +181,9 @@ frappe.ui.form.on('Sales Invoice', {
     is_debit_note: function(frm) {
         set_invoice_type_code(frm);
     },
+    custom_is_return_refund: function(frm) {
+        set_invoice_type_code(frm);
+    }
 });
 
 
@@ -223,7 +226,10 @@ function set_invoice_type_code(frm) {
         frm.set_value('custom_invoicetype_code', '02 : Credit Note');
     } else if (frm.doc.is_debit_note){
         frm.set_value('custom_invoicetype_code', '03 :  Debit Note');
-    } else {
+    }else if (frm.doc.custom_is_return_refund){
+        frm.set_value('custom_invoicetype_code', '04 :  Refund Note');
+    }
+     else {
         frm.set_value('custom_invoicetype_code', '01 :  Invoice');
     }
 }
