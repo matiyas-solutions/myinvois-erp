@@ -664,7 +664,10 @@ def customer_data(invoice, sales_invoice_doc):
             listAgencyID="6",
             listID="ISO3166-1",
         )
-        idntfn_code_val.text = "MYS"
+        # idntfn_code_val.text = "MYS"
+        country_code = frappe.get_value("Country", address.country, "code")
+        idntfn_code_val.text = "MYS" if address.country == "Malaysia" else country_code
+        
 
         party_legalEntity = ET.SubElement(cac_Party, "cac:PartyLegalEntity")
         reg_name_val = ET.SubElement(party_legalEntity, "cbc:RegistrationName")
@@ -758,7 +761,12 @@ def delivery_data(invoice, sales_invoice_doc):
             listAgencyID="6",
             listID="ISO3166-1",
         )
-        country_id_code.text = "MYS"
+        # country_id_code.text = "MYS"
+        
+        country_code = frappe.get_value("Country", address.country, "code")
+        country_id_code.text = "MYS" if address.country == "Malaysia" else country_code
+
+        
 
         party_legal_entity = ET.SubElement(delivery_party, "cac:PartyLegalEntity")
         registration_name = ET.SubElement(party_legal_entity, "cbc:RegistrationName")
