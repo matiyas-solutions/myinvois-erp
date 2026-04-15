@@ -341,7 +341,8 @@ def company_data(invoice, sales_invoice_doc):
         )
         # if address.country == "Malaysia":
         #     idntfn_cod.text = "MYS"
-        idntfn_cod.text = "MYS" if address.country == "Malaysia" else address.country
+        country_code = frappe.get_value("Country", address.country, "code")
+        idntfn_cod.text = "MYS" if address.country == "Malaysia" else country_code
 
         # PartyLegalEntity
         party_legal_entity = ET.SubElement(party_, "cac:PartyLegalEntity")
