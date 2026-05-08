@@ -1249,18 +1249,17 @@ def generate_qr_code(sales_invoice_doc, status):
         verification_url = f"https://myinvois.hasil.gov.my/{uuid}/share/{long_id}"
 
     try:
-        qr_code_payload = json.dumps(verification_url)
-        qr = pyqrcode.create(qr_code_payload)
+        qr = pyqrcode.create(verification_url)
+        
         qr_image_path = frappe.utils.get_site_path(
             "public", "files", f"{sales_invoice_doc.name}_qr.png"
         )
-        qr.png(qr_image_path, scale=6)  # Adjust scale as needed
+        qr.png(qr_image_path, scale=6)
         return qr_image_path
 
     except Exception as e:
         frappe.log_error(str(e), "QR Code Generation Failed")
-        return None  # ✅ skip if QR creation fa
-
+        return None
 
 def attach_qr_code_to_sales_invoice(sales_invoice_doc, qr_image_path):
     """Attach the QR code image to the Sales Invoice"""
