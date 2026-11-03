@@ -46,11 +46,11 @@ A Frappe ERPNext app designed to help businesses in Malaysia comply with LHDN e-
 
 **🔹 Compatibility**
 
-🌐 ERPNext Versions: 15 and 16 ( future release tested for verison 16 )
+🌐 ERPNext Versions: 15 and 16
 
 
 # Get the app from GitHub
-bench get-app https://github.com/ERPGulf/myinvois.git
+bench get-app https://github.com/matiyas-solutions/myinvois-erp.git
 
 # Install the app on your site
 bench --site yoursite.com install-app myinvois_erpgulf
@@ -106,7 +106,7 @@ Your contributions make this project better! 🙌
 
 **📩 Support & Customization**
 
-For implementation support or customization, contact: 📧 support@ERPGulf.com
+For implementation support or customization, contact: 📧 business@matiyas.com (Matiyas Solutions LLP)
 
 **👥 Social**
 
