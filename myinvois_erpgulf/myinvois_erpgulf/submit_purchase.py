@@ -47,7 +47,7 @@ import os
 def xml_hash():
     """defining the xml hash"""
     try:
-        with open(frappe.local.site + "/private/files/beforesubmit1.xml", "rb") as file:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
+        with open(frappe.get_site_path("private", "files", "beforesubmit1.xml"), "rb") as file:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
             xml_content = file.read()
         root = etree.fromstring(xml_content)
         line_xml = etree.tostring(root, pretty_print=False, encoding="UTF-8")
@@ -76,7 +76,7 @@ def certificate_data(company_abbr):
         file_doc = frappe.get_doc("File", {"file_url": attached_file})
         pfx_path = file_doc.get_full_path()
         pfx_password = company_doc.get_password('custom_pfx_cert_password')
-        pem_output_path = frappe.local.site + "/private/files/certificate.pem" 
+        pem_output_path = frappe.get_site_path("private", "files", "certificate.pem") 
         pem_encryption_password = pfx_password.encode()
         with open(pfx_path, "rb") as f:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
             pfx_data = f.read()
@@ -143,7 +143,7 @@ def sign_data(line_xml, company_abbr):
         hashdata = line_xml.decode().encode()
         # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
         f = open(
-            frappe.local.site + "/private/files/certificate.pem", "r", encoding="utf-8"
+            frappe.get_site_path("private", "files", "certificate.pem"), "r", encoding="utf-8"
         ) 
         cert_pem = f.read()
         if hashdata is None:
@@ -296,7 +296,7 @@ def ubl_extension_string(
             )
 
             # Save the final result
-            output_path = frappe.local.site + "/private/files/aftersignforsubmit.xml"
+            output_path = frappe.get_site_path("private", "files", "aftersignforsubmit.xml")
             with open(output_path, "w", encoding="utf-8") as file:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
                 file.write(result_final)
         else:
@@ -336,14 +336,14 @@ def submission_url(sales_invoice_doc, company_abbr):
             file_path = "/private/files/aftersignforsubmit.xml"
         else:
             file_path = "/private/files/beforesubmit1.xml"
-        xml_path = frappe.local.site + file_path
+        xml_path = frappe.get_site_path(file_path.lstrip("/"))
 
         # Read XML data
         with open(xml_path, "rb") as file:  # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
             xml_data = file.read()
         pretty_xml_string = minidom.parseString(xml_data).toprettyxml(indent="  ")
         # file_path1 = "/private/files/signedxmlfile.xml"  # You can specify your desired file path here
-        # xml_dat_path = frappe.local.site + file_path1
+        # xml_dat_path = frappe.get_site_path(file_path1.lstrip("/"))
         # with open(xml_dat_path, "w", encoding="utf-8") as file:
         #     file.write(pretty_xml_string)
         # with open(xml_dat_path, "rb") as file:
