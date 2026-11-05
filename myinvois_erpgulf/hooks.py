@@ -1,6 +1,6 @@
 # from frappe import _
 app_name = "myinvois_erpgulf"
-app_title = "Myinvois Erpgulf"
+app_title = "Myinvois AM"
 app_publisher = "Matiyas Solutions LLP"
 app_description = "MyInvoice - E-Invoice for Malaysia"
 app_email = "business@matiyas.com"
