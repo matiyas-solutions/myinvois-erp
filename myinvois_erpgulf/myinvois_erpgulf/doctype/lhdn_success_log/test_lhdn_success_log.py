@@ -2,8 +2,11 @@
 # See license.txt
 
 # import frappe
-from frappe.tests.utils import FrappeTestCase
+try:
+	from frappe.tests import IntegrationTestCase
+except ImportError:  # Frappe v15
+	from frappe.tests.utils import FrappeTestCase as IntegrationTestCase
 
 
-class TestLHDNSuccessLog(FrappeTestCase):
+class TestLHDNSuccessLog(IntegrationTestCase):
 	pass

@@ -1137,7 +1137,7 @@ def xml_structuring(invoice, sales_invoice_doc):
     try:
         raw_xml = ET.tostring(invoice, encoding="utf-8", method="xml").decode("utf-8")
         # nosemgrep: frappe-semgrep-rules.rules.security.frappe-security-file-traversal
-        with open(frappe.local.site + "/private/files/beforesubmit1.xml", "w") as file:
+        with open(frappe.get_site_path("private", "files", "beforesubmit1.xml"), "w") as file:
             file.write(raw_xml)
 
         # fileXx = frappe.get_doc(
